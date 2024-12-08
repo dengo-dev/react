@@ -2,8 +2,10 @@ import {useContext, useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
+import { addItem } from "../store";
 
 import {Context1} from './../App'
+import { useDispatch } from "react-redux";
 
 function Detail(props){
 
@@ -15,7 +17,7 @@ function Detail(props){
     let 찾은상품=props.shoes.find(x=>x.id==id);
     let [alert, setAlert] = useState(true)
     let [탭, 탭변경] = useState(0)
-
+    let dispatch = useDispatch
 
     useEffect(()=>{
         let a = setTimeout(()=>{setAlert(false)},2000)
@@ -47,7 +49,9 @@ function Detail(props){
                 <h4 className="pt-5">{props.shoes[id].title}</h4>
                 <p>{props.shoes[id].content}</p>
                 <p>{props.shoes[id].price}원</p>
-                <button className="btn btn-danger">주문하기</button> 
+                <button className="btn btn-danger" onClick={()=>{
+                    dispatch(addItem({id : 2, name : 'Grey Yordan', count : 1} ))
+                }}>주문하기</button> 
             </div>
         </div>
         <Nav variant="tabs"  defaultActiveKey="link0">
